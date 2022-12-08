@@ -1,68 +1,13 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Shop Adventure</title>
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-        
-        <link rel="stylesheet" type="text/css" href="{% static 'my_styles.css' %}">
+{% block content %}
 
-    </head>
-
-  </head>
-
-  <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     <div class="container px-4 px-lg-5">
-         <a class="navbar-brand" href={% url 'offers' %}>Buy Adventure</a>
-         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                 <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'home' %}>Home</a></li>
-                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                 <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href={% url 'offers' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">Travel Offers</a>
-                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                         <li><a class="dropdown-item" href="#!">All Products</a></li>
-                         <li><hr class="dropdown-divider" /></li>
-                         <li><a class="dropdown-item" href="#!">Popular Adventures</a></li>
-                         <li><a class="dropdown-item" href="#!">New Adventures</a></li>
-                     </ul>
-                 </li>
-             </ul>
-
-             <a href="{% url 'login' %}">
-              <button  class="btn btn-primary" type='submit'><i  class="fill me-1"></i>Log In
-               <span class="bg-dark text-white ms-1 rounded-pill"></span>
-              </button>
-             </a>
-             
-              <a href="{% url 'register' %}">
-                <button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Register
-                 <span class="bg-dark text-white ms-1 rounded-pill"></span>
-                </button>
-               </a>
-             
-             <a href="{% url 'cart' %}" class="d-flex">
-                 <button  class="btn btn-outline-dark" type='submit'><i  class="bi-cart-fill me-1"></i>Cart
-                  <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart_count }}</span>
-                 </button>
-                </a>
-         </div>
-     </div>
- </nav>
-<body style="background-color:rgb(193, 225, 193)">
-<section class="section-content padding-y">
+<section class="section-content padding-y" style="background-color:rgb(212, 239, 223)">
 
         <div class="card mx-auto" style="max-width:500px; margin-top:50px;">
           <article class="card-body">
+            {% include 'alerts.html' %}
             <header class="mb-4"><h4 class="card-title">Register</h4></header>
             <form action="{% url 'register' %}" method="POST">
                 {% csrf_token %} 
@@ -73,11 +18,12 @@
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>{{ form.last_name }}</div>
                         </div>
+
                         <div class="form-row">
                             <div class="col-md-6 form-group">
                             <label>E-mail</label>{{ form.email }}</div> 
-
                         </div>
+
                         <div class="form-row">
                         <div class="col-md-6 form-group">
                         <label>Phone Number</label>{{ form.phone_number }}</div>
@@ -106,7 +52,14 @@
                 </form>
             </article>
         </div> 
-       
-        <p class="text-center mt-4">Have an account? <a href="">Log In</a></p>
-        <br><br>
+    
+        <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
+    </section>
+ 
+        {% endblock %}
 
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script {% static 'js/scripts.css' %}></script>

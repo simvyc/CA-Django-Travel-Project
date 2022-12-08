@@ -38,40 +38,23 @@
                      </ul>
                  </li>
              </ul>
+        <div class="d-flex justify-content-end mb-3 mb-lg-0">
+        {% if user.id is None %}
+        <div class=""><h4 class="title">Welcome, Guest! </h4></div>
+             <a href="{% url 'login' %}"><button  class="btn btn-primary" type='submit'><i  class="fill me-1"></i>Log In<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
+             <a href="{% url 'register' %}"><button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Register<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
+            {% else %}
+            <div class=""><h4>Welcome, {{ user.first_name}}!</h4></div>
+            <a href="{% url 'logout' %}"><button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Log Out<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
+            {% endif %}
+            <a href="{% url 'cart' %}" class="d-flex">
+              <button  class="btn btn-outline-dark" type='submit'><i  class="bi-cart-fill me-1"></i>Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart_count }}</span></button></a>
+              </div>
+            </div>
+          </div>
+    </nav>
 
-             <a href="{% url 'login' %}">
-              <button  class="btn btn-primary" type='submit'><i  class="fill me-1"></i>Log In
-               <span class="bg-dark text-white ms-1 rounded-pill"></span>
-              </button>
-             </a>
-             
-              <a href="{% url 'register' %}">
-                <button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Register
-                 <span class="bg-dark text-white ms-1 rounded-pill"></span>
-                </button>
-               </a>
-             
-             <a href="{% url 'cart' %}" class="d-flex">
-                 <button  class="btn btn-outline-dark" type='submit'><i  class="bi-cart-fill me-1"></i>Cart
-                  <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart_count }}</span>
-                 </button>
-                </a>
-         </div>
-     </div>
- </nav>
-    <!-- Header-->
-    <header class="p-5 text-center bg-image" style="
-    background-image: url('https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg');
-    height: 400px;
-    margin-top: 58px;
-    ">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Take your next adventure...</h1>
-            <p class="lead fw-normal text-white-50 mb-0">E-Shop for Adventures</p>
-        </div>
-    </div>
-</header>
 
     {% block content %}
     {% comment %} Content {% endcomment %}
@@ -79,7 +62,7 @@
 
      <!-- Footer -->
   <footer class="text-center text-lg-start bg-white text-muted">
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+   
 
       <!-- Right -->
       <div>
@@ -103,7 +86,7 @@
         </a>
       </div>
       <!-- Right -->
-    </section>
+
     <!-- Section: Social media -->
     <!-- Section: Links  -->
     <section class="">
@@ -169,6 +152,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        {% comment %} <script src="../travelapp/static/js/scripts.js"></script> {% endcomment %}
+        <script {% static 'js/scripts.css' %}></script>
     </body>
 </html>
