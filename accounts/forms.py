@@ -19,6 +19,7 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ['first_name', 'last_name', 'email', 'password', 'phone_number']
+        
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'

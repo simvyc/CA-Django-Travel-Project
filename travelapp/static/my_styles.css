@@ -1411,11 +1411,3 @@ a[class*=card]:hover .title {
   margin-right: 5px;
   display: block;
 }
-
-
-
-.pagination-1
-{
-    background-color: wheat;
-    color: #bbb154;
-}
