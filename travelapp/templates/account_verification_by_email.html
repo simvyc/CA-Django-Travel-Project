@@ -1,0 +1,14 @@
+{% autoescape off %}
+
+Hello, {{ user.first_name }} {{ user.last_name}},
+
+    Thank you for your registration on Travelsite. 
+    
+    Please verify your email to complete your registration process:
+    http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+
+    Kind Regards, 
+    Travelsite Team
+
+{% endautoescape %}

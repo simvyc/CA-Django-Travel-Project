@@ -3,6 +3,17 @@
 
 {% block content %} 
 <section class="section-content padding-y" style="background-color:rgb(212, 239, 223)">
+
+{% if request.GET.command == 'verification' %}
+
+<div class="card mx-auto alert alert-info text-center" role = "alert" style="max-width: 1200px; margin-top:30px; ">
+  Thank you for your registration.
+  We have sent you a verification to your email: <b> {{request.GET.email}} </b>
+  Already verified? <a href="{% url 'login' %}">Log In</a>
+</div>
+
+{% else %}
+
     <div>
         <div class="card mx-auto" style="max-width: 380px; margin-top:20px; ">
             {% include 'alerts.html' %}
@@ -30,5 +41,6 @@
          <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Register</a></p>
          <br></br>
     </div>
+{% endif %} 
     </section>
 {% endblock %} 
