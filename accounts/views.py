@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from accounts.models import Account
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == 'POST':
@@ -44,5 +45,8 @@ def login(request):
         
     return render(request, 'login.html')
 
+@login_required(login_url='login')
 def logout(request):
-    return
+    auth.logout(request)
+    messages.success(request, 'Logged Out')
+    return redirect('login')

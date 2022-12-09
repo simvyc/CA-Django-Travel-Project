@@ -40,11 +40,15 @@
              </ul>
         <div class="d-flex justify-content-end mb-3 mb-lg-0">
         {% if user.id is None %}
-        <div class=""><h4 class="title">Welcome, Guest! </h4></div>
+        
              <a href="{% url 'login' %}"><button  class="btn btn-primary" type='submit'><i  class="fill me-1"></i>Log In<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
              <a href="{% url 'register' %}"><button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Register<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
             {% else %}
-            <div class=""><h4>Welcome, {{ user.first_name}}!</h4></div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+              <li class="nav-item"><a class="nav-link active text-capitalize" aria-current="page" href={% url 'home' %}>Welcome, {{ user.first_name}}!</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">My Profile</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">To Do List</a></li>
+            </ul>
             <a href="{% url 'logout' %}"><button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Log Out<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
             {% endif %}
             <a href="{% url 'cart' %}" class="d-flex">
