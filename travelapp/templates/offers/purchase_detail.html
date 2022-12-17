@@ -67,17 +67,48 @@
         </div> 
     </div> 
 
-    
     <br>
     
     <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6">
     
+
+
+        <form action="{% url 'post_review' single_purchase.id %}" method="POST">
+            {% csrf_token %}
+            {% include 'alerts.html' %}
+            {% if user.is_authenticated %}
+            <h6><b>Write Your Review</b></h6>
+
+                <div>
+                    <label>Rating: </label>
+                    <br>
+                    <div class="rate">
+                    <input type="radio" name="rating" id="rating5" value="5" required></input><label for="rating5" title="5"></label>
+                    <input type="radio" name="rating" id="rating4" value="4" required></input><label for="rating4" title="4"></label>
+                    <input type="radio" name="rating" id="rating3" value="3" required></input><label for="rating3" title="3"></label>
+                    <input type="radio" name="rating" id="rating2" value="2" required></input><label for="rating2" title="2"></label>
+                    <input type="radio" name="rating" id="rating1" value="1" required></input><label for="rating1" title="1"></label>
+                </div>
+                <br></br>
+                    Review Title:
+                    <input type="text" class="form-control" name="subject" required></input>
+                    Review:
+                    <textarea class="form-control" name="review" rovs="5" cols="70"></textarea>
+                    <br>
+                    <input type="submit" value="Post Review" class="btn btn-primary"></input>
+                    {% else %}
+                    <p>You must log in to write a review.<span><a href="{% url 'login' %}">Log in</a></span></p>
+                    {% endif %}
+                </div>
+
+        </form>
+        <br></br>
+
         <header class="section-heading">
             <h3>Customer Reviews </h3>  
             
         </header>
-    
         <article class="box mb-3">
             <div class="icontext w-100">
                 <img src="{% static '/images/img/no-image.png' %}" class="img-xs icon rounded-circle">
@@ -95,8 +126,6 @@
                 </p>	
             </div>
         </article>
-    
-        
     
         </div> 
     </div> 
