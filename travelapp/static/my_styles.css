@@ -6,11 +6,7 @@ html {
   font-family: "Inter", sans-serif;
   font-size: 15px;
 }
-
-/* ========================
-INCLUDE STYLES AND COMPONENTS
-===================== */
-/* ================== HELPERS  =================== */
+/* ========================INCLUDE STYLES AND COMPONENTS===================== */
 a:hover {
   text-decoration: none;
 }
@@ -154,7 +150,6 @@ a:hover {
   transition: 0.5s;
   transform: scaleX(1);
 }
-
 /* ============== spacing ============== */
 .padding-y {
   padding-top: 40px;
@@ -225,7 +220,6 @@ article:after,
   clear: both;
   content: "";
 }
-
 /* -------------------- small grid gutter --------------------- */
 .row-sm {
   margin-right: -7px;
@@ -274,57 +268,6 @@ article:after,
   transition: 0.5s;
 }
 
-.bg-gradient-green {
-  background: rgba(33, 37, 41, 0.4);
-  /* For browsers that do not support gradients */
-  /* For Safari 5.1 to 6.0 */
-  /* For Opera 11.1 to 12.0 */
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgba(0, 181, 23, 0.9), rgba(33, 37, 41, 0.4));
-  /* Standard syntax */
-  transition: 0.5s;
-}
-
-.bg-gradient-orange {
-  background: rgba(33, 37, 41, 0.4);
-  /* For browsers that do not support gradients */
-  /* For Safari 5.1 to 6.0 */
-  /* For Opera 11.1 to 12.0 */
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgba(255, 144, 23, 0.9), rgba(33, 37, 41, 0.4));
-  /* Standard syntax */
-  transition: 0.5s;
-}
-
-.bg-gradient-red {
-  background: rgba(33, 37, 41, 0.4);
-  /* For browsers that do not support gradients */
-  /* For Safari 5.1 to 6.0 */
-  /* For Opera 11.1 to 12.0 */
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgba(250, 52, 52, 0.9), rgba(33, 37, 41, 0.4));
-  /* Standard syntax */
-  transition: 0.5s;
-}
-
-.bg-gradient-pink {
-  background: rgba(33, 37, 41, 0.4);
-  /* For browsers that do not support gradients */
-  /* For Safari 5.1 to 6.0 */
-  /* For Opera 11.1 to 12.0 */
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, rgba(232, 62, 140, 0.9), rgba(33, 37, 41, 0.4));
-  /* Standard syntax */
-  transition: 0.5s;
-}
-
-.bg-pattern {
-  background-image: url(../images/banners/bg-pattern.svg), linear-gradient(135deg, #3167eb, #545454);
-  background-size: cover, auto;
-  background-repeat: no-repeat, repeat;
-  background-position: 0px 0px, 50% 50%;
-}
-
 .bg-img {
   overflow: hidden;
   background-color: #ddd;
@@ -332,32 +275,12 @@ article:after,
   background-position: 0px 0px, 50% 50%;
   background-size: auto cover;
 }
-
 .overlay-gradient {
   position: relative;
-}
-.overlay-gradient:before {
-  position: absolute;
-  content: "";
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.6;
-  transition: 0.5s;
-  background: aqua;
-  /* For browsers that do not support gradients */
-  /* For Safari 5.1 to 6.0 */
-  /* For Opera 11.1 to 12.0 */
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, #3167eb, aqua);
-  /* Standard syntax */
 }
 .overlay-gradient:hover:before {
   opacity: 0.9;
 }
-
 /* --------------------- titles ---------------------- */
 .section-heading {
   margin-bottom: 20px;
@@ -439,35 +362,6 @@ p:last-child {
 }
 .navbar-main .nav-link:hover {
   color: #666;
-}
-
-.widget-header {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-}
-.widget-header a {
-  color: #343a40;
-}
-.widget-header a:hover {
-  color: #3167eb;
-}
-.widget-header i {
-  color: #969696;
-}
-.widget-header form {
-  min-width: 280px;
-}
-.widget-header .title {
-  display: block;
-}
-.widget-header .notify {
-  position: absolute;
-  top: -3px;
-  right: -10px;
-}
-.widget-header:hover i {
-  color: #3167eb;
 }
 
 /* desktop only */
@@ -825,36 +719,6 @@ a[class*=card] {
 a[class*=card]:hover .title {
   color: #3167eb;
 }
-
-/* BASE STYLE FOR PRODUCT ITEM */
-[class*=card-product] a.title {
-  color: #212529;
-  display: block;
-}
-[class*=card-product] a.title:hover {
-  color: #3167eb;
-}
-[class*=card-product] .badge {
-  top: 10px;
-  left: 10px;
-  position: absolute;
-}
-[class*=card-product] p {
-  margin-bottom: 0;
-}
-[class*=card-product] .img-wrap {
-  overflow: hidden;
-  position: relative;
-}
-[class*=card-product] .img-wrap img {
-  height: 100%;
-  max-width: 100%;
-  width: auto;
-  display: inline-block;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 /* GRID STYLE PRODUCT ITEM */
 .card-product-grid {
   margin-bottom: 20px;
@@ -1398,7 +1262,6 @@ a[class*=card]:hover .title {
 }
 
 /* ================ PAGES HEADER ================== */
-/* ====================== shopping-cart ==================== */
 .table-shopping-cart.table td, .table-shopping-cart.table th {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -1411,3 +1274,36 @@ a[class*=card]:hover .title {
   margin-right: 5px;
   display: block;
 }
+
+.rate > input{
+  display: none;
+}
+
+.rate{
+  display: inline-block;
+  border: 0;
+}
+
+.rate > label{
+  float: right;
+}
+
+.rate > label:before{
+  display: inline-block;
+  font-size: 1.1rem;
+  font-family: FontAwesome;
+  content: "\f005";
+  margin: 0;
+  padding: 0.3rem .2rem;
+}
+
+input:checked ~ label, label:hover ~ label{
+  color:#ffb503
+
+}
+
+input:checked + label:hover, input:checked ~ label:hover, input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+  color: #8f6709
+}
+

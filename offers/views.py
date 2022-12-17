@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from offers.models import Purchase
+from django.shortcuts import render, get_object_or_404, redirect
+from offers.models import Purchase, ReviewAndRating
 from category.models import Category
 from carts.models import CartItem
 from carts.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from .forms import ReviewForm
+from django.contrib import messages
 
 
 def offers(request, category_slug=None):
@@ -37,7 +39,6 @@ def purchase_detail(request, category_slug, slug):
         single_purchase = Purchase.objects.get(category__slug=category_slug, slug=slug)
         is_in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), purchase=single_purchase).exists()
 
-        
     except Exception as e:
         raise e
     
@@ -46,3 +47,26 @@ def purchase_detail(request, category_slug, slug):
         'is_in_cart': is_in_cart,
     }
     return render(request, 'offers/purchase_detail.html', context)
+        
+def post_review(request, purchase_id):
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        try:
+            reviews = ReviewAndRating.objects.get(user__id=request.user.id, purchase__id=purchase_id)
+            form = ReviewForm(request.POST, instance=reviews)
+            form.save()
+            messages.success(request, 'Thank you! Your review has been updated.')
+            return redirect(url)
+        except ReviewAndRating.DoesNotExist:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                data = ReviewAndRating()
+                data.subject = form.cleaned_data['subject']
+                data.rating = form.cleaned_data['rating']
+                data.review = form.cleaned_data['review']
+                data.ip = request.META.get('REMOTE_ADDR')
+                data.purchase_id = purchase_id
+                data.user_id = request.user.id
+                data.save()
+                messages.success(request, 'Thank you! Your review has been submitted.')
+                return redirect(url)

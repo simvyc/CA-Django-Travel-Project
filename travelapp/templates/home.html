@@ -29,11 +29,9 @@
                               <!-- Purchase details-->
                               <div class="card-body p-3">
                                   <div class="text-center">
-                                      <!-- Purchase name-->
-                                      <a href="{{ purchase.get_url }}">
-                                      <h5 class="fw-bolder">{{ purchase.purchase_name }}</h5> </a>
-                                      <!-- Purchase price-->
-                                      {{ purchase.price }}€
+                                      <a href="{{ purchase.get_url }}"><h5 class="fw-bolder">{{ purchase.purchase_name }}</h5></a>
+                                      <a>{{ purchase.category }} in {{ purchase.country }}</a>
+                                      <div class="text-center"><a><b>{{ purchase.price }}€</b></a></div>
                                   </div>
                               </div>
                               <!-- Purchase actions-->
