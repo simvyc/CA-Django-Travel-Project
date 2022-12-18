@@ -13,10 +13,15 @@ class Country(models.Model):
     class Meta:
         verbose_name = 'country'
         verbose_name_plural = 'countries'
+
+# city_choice = (
+#     ('city', 'city'),
+# )
             
-class City(models.Model):
-    city_name = models.CharField('City',  max_length=200, help_text='Select the city')
-    country_name = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+class City(models.Model): 
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+    city_name = models.CharField('City', max_length=150, help_text='Select the city')
+    
                 
     def __str__(self):
         return self.city_name

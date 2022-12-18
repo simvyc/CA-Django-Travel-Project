@@ -1,5 +1,5 @@
 from django.db import models
-from offers.models import Purchase
+from offers.models import Purchase, Variation
 from accounts.models import Account
 
 class Cart(models.Model):
@@ -12,6 +12,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    variations = models.ManyToManyField(Variation, blank=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
     persons = models.IntegerField()
     is_active = models.BooleanField(default=True)
