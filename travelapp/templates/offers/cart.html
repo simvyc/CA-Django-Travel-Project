@@ -4,101 +4,101 @@
 {% block content %}
 <section class="section-content padding-y bg">
     <div class="container">
-    
-    {% if not cart_items  %}
-        <div class="text-center"> You do not have any Adventures in Your Cart </div>
-        <br>
-        <div class="text-center"><a href="{% url 'offers' %}" class="btn btn-primary">Choose Adventure</a></div>
-    {%  else %}
 
+        {% if not cart_items %}
+           <div class="text-center">You do not have any Adventures in Your Cart</div>
+           <br>
+           <div class="text-center"><a href="{% url 'offers' %}" class="btn btn-primary">Choose Adventure</a></div>
 
-    <div class="row">
+{% else %}
+<div class="row" >
         <aside class="col-lg-9">
-    <div class="card">
-    <table class="table table-borderless table-shopping-cart">
-    <thead class="text-muted">
-    <tr class="small text-uppercase">
-      <th scope="col">Adventure</th>
-      <th scope="col" width="120">Tickets</th>
-      <th scope="col" width="120">Price</th>
-      <th scope="col" class="text-right" width="150"> </th>
-    </tr>
-    </thead>
-    <tbody>
+        <div class="card">
+        <table class="table table-borderless table-shopping-cart">
+        <thead class="text-muted">
+            <tr class="small text-uppercase">
+            <th scope="col">Adventure</th>
+            <th scope="col" width="120">Tickets</th>
+            <th scope="col" width="120">Price</th>
+            <th scope="col" class="text-right" width="150"> </th>
+            </tr>
+        </thead>
+<tbody>
+{% for cart_item in cart_items %}
+<tr>
+<td>
+    <figure class="itemside align-items-center">
+        <div class="aside"><img class="img-sm" src="{{ cart_item.purchase.image.url }}"></div>  
+        <figcaption class="info">
+            <a href="{{ cart_item.purchase.get_url }}" class="title text-dark">{{ cart_item.purchase.purchase_name }}</a>
+            <p class="text-muted small">Country: {{cart_item.purchase.country.country_name}} <br> City: {{cart_item.purchase.city.city_name}}
+                {% if cart_item.variations.all %}
+                        {% for item in cart_item.variations.all %}
+                        {{ item.variation | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                        {% endfor %}
+                {% endif %}
+            </p>
+        </figcaption>
+    </figure>
+</td>
+<td> 
+    <div class="col"> 
+        <div class="input-group input-spinner">
+            <div class="input-group-prepend">
 
-    {% for cart_item in cart_items %}
-    <tr>
-        <td>
-            <figure class="itemside align-items-center">
-                <div class="aside"><img class="img-sm" src="{{ cart_item.purchase.image.url }}"></div>  
-                <figcaption class="info">
-                    <a href="{{ cart_item.purchase.get_url }}" class="title text-dark">{{ cart_item.purchase.purchase_name }}</a>
-                    <p class="text-muted small">Country: {{cart_item.purchase.country.country_name}} <br> City: {{cart_item.purchase.city.city_name}}</p>
-                </figcaption>
-            </figure>
-        </td>
-        <td> 
-            <!-- col.// -->
-                        <div class="col"> 
-                            <div class="input-group input-spinner">
-                                <div class="input-group-prepend">
-                                <a href="{% url 'remove_cart' cart_item.purchase_id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
-                                </div>
-                                <input type="text" class="form-control"  value="{{ cart_item.persons }}">
-                                <div class="input-group-append">
-                                <a href="{% url 'add_cart' cart_item.purchase_id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
-                                </div>
-                            </div>
-                        </div> <!-- col.// -->
-        </td>
-        <td> 
-            <div class="price-wrap"> 
-                <var class="price">{{ cart_item.sub_total }}€</var> 
-                <small class="text-muted">{{ cart_item.purchase.price }}€ each </small> 
+                <a href="{% url 'remove_cart' cart_item.purchase.id cart_item.id %}" class="btn btn-secondary" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a></div>
+                
+                <input type="text" class="form-control"  value="{{ cart_item.persons }}">
+                <div class="input-group-append">
+                    
+                    <form action="{% url 'add_cart' cart_item.purchase.id %}" method="POST">
+                        {% csrf_token %}
+                        {% for item in cart_item.variations.all %}
+                           <input type="hidden" name="{{ item.variation | lower }}" value="{{ item.variation_value | capfirst }}">
+                        {% endfor %}
+                        <button class="btn btn-secondary" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+                    </form>
+
+                </div>
             </div>
-        </td>
-        <td class="text-right"> 
-        <a href="{% url 'remove_cart_item' cart_item.purchase_id %}" class="btn btn-danger"> Remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-    
-    </tbody>
-    </table>
-    </div> 
-    
-        </aside> 
-        <aside class="col-lg-3">
-    
-            <div class="card">
-            <div class="card-body">
-                <dl class="dlist-align">
-                  <dt>Total price:</dt>
-                  <dd class="text-right">{{ total }}</dd>
-                </dl>
-                <dl class="dlist-align">
-                  <dt>Tax:</dt>
-                  <dd class="text-right">{{ tax }}€</dd>
-                </dl>
-                <dl class="dlist-align">
-                  <dt>Total:</dt>
-                  <dd class="text-right text-dark b"><strong>{{ t_total }}€</strong></dd>
-                </dl>
-                <hr>
-                <p class="text-center mb-3">
-                    <img src="{% static 'images/misc/payments.png' %}" height="26">
-                </p>
-                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
-                <a href="{% url 'offers' %}" class="btn btn-light btn-block">Continue Shopping</a>
-            </div> 
-            </div> 
-    
-    </aside>
-    
-    
-    </div> 
+        </div>
+    </td>
 
-    {% endif %}
-    </div> 
-    </section>
+
+
+    <td> 
+        <div class="price-wrap"> 
+            <var class="price">{{ cart_item.sub_total }}€</var> 
+            <small class="text-muted">{{ cart_item.purchase.price }}€ each </small>
+        </div>
+    </td>
+    <td class="text-right">
+        <a href="{% url 'remove_cart_item' cart_item.purchase.id cart_item.id %}" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-secondary"> Remove</a>
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</aside>
+<aside class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align"><dt>Total price:</dt>
+                            <dd class="text-right">{{ total }}</dd></dl>
+                            <dl class="dlist-align"><dt>Tax:</dt><dd class="text-right">{{ tax }}€</dd></dl>
+                            <dl class="dlist-align"><dt>Total:</dt><dd class="text-right text-dark b"><strong>{{ t_total }}€</strong></dd></dl>
+                            
+                            <hr>
+                            
+                            <p class="text-center mb-3">
+                                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+                                <a href="{% url 'offers' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                            </div> 
+                        </div>
+                    </aside>
+                </div> 
+                {% endif %}
+            </div> 
+        </section>
 {% endblock %}

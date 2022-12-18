@@ -21,9 +21,8 @@ def offers(request, category_slug=None):
         paged_purchases = paginator.get_page(page)
         purchase_count = purchases.count()
     else:
-            
         purchases = Purchase.objects.all().filter(is_available=True).order_by('id')
-        paginator = Paginator(purchases, 6)
+        paginator = Paginator(purchases, 4)
         page = request.GET.get('page')
         paged_purchases = paginator.get_page(page)
         purchase_count = purchases.count()
@@ -42,7 +41,7 @@ def purchase_detail(request, category_slug, slug):
 
     except Exception as e:
         raise e
-    
+
     context={
         'single_purchase': single_purchase,
         'is_in_cart': is_in_cart,

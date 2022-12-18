@@ -11,7 +11,7 @@ class Purchase(models.Model):
     price = models.IntegerField()
     image = models.ImageField('Image', upload_to='./travelapp/media/travels', blank=True) #null=True
     is_available = models.BooleanField(default=True)
-    tickets = models.IntegerField(default=10)
+    persons = models.IntegerField(default=10)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text='Select category') # when delete category, travels with that cat will be deleted
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, help_text='Select country')
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, help_text='Select city')
@@ -24,7 +24,29 @@ class Purchase(models.Model):
 
     def __str__(self):
         return self.purchase_name
+
+class VariationManager(models.Manager):
+    def datetimes(self):
+        return super(VariationManager, self).filter(variation='datetime', is_active=True)
     
+variation_choice = (
+    ('datetime', 'datetime'),
+)
+
+class Variation(models.Model):
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    variation = models.CharField(max_length=100, choices=variation_choice)
+    variation_value = models.DateTimeField(null=True)
+    is_active = models.BooleanField(default=True)
+    created_date = models.DateTimeField(auto_now=True)
+    
+    
+    objects = VariationManager()
+    
+    def __str__(self):
+        return self.variation_value
+    
+   
 class ReviewAndRating(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
