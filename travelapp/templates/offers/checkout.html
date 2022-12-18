@@ -12,7 +12,8 @@
     <div class="card">
         <div class="card-body">
             <h6 class="card-title mb-4">Billing Adress</h6>
-            <form action="">
+            <form action="" method="POST">
+                {% csrf_token %}
                 <div class="form-row">
                     <div class="col form-group">
                         <label for="">First name</label><input type="text" name="first_name" class="form-control" required></label>
@@ -42,7 +43,7 @@
                         <textarea name="comments" rows="5" cols="50"></textarea>
                     </div>
                 </div>
-            </form>
+            
         </div>
     </div> 
         </aside> 
@@ -120,12 +121,13 @@
                         </div> 
                 </aside>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="{% url 'order_checkout' %}" class="btn btn-primary btn-block">Order</a>
+                    <button type="submit" class="btn btn-primary btn-block" name="submit">Order</button>
                     <a href="{% url 'offers' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                </form>
                   </div>
             </div> 
             </div> 
-    
+        
     </aside>
     
     
