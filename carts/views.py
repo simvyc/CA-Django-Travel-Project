@@ -150,6 +150,8 @@ def remove_cart_item(request, purchase_id, cart_item_id):
     cart_item.delete()
     return redirect('cart')
 
+
+
 def cart(request, total=0, persons=0, cart_items=None):
     try:
         tax=0
@@ -181,14 +183,19 @@ def cart(request, total=0, persons=0, cart_items=None):
     return render(request, 'offers/cart.html', context)
 
 
+
+
+
 @login_required(login_url='login')
 def checkout(request, total=0, persons=0, cart_items=None):
 
     try:
         tax=0
         t_total=0
-        cart = Cart.objects.get(cart_id=_cart_id(request)) # take cart obj by id
-        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        if request.user.is_authenticated:
+            cart = Cart.objects.get(cart_id=_cart_id(request)) # take cart obj by id
+        else:
+            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
             total += (cart_item.purchase.price * cart_item.persons)
             persons += cart_item.persons
@@ -210,3 +217,4 @@ def checkout(request, total=0, persons=0, cart_items=None):
 
 def order_checkout(request):
     return render(request, 'offers/order_checkout.html')
+

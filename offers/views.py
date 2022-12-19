@@ -41,10 +41,14 @@ def purchase_detail(request, category_slug, slug):
 
     except Exception as e:
         raise e
+    
+        
+    reviews = ReviewAndRating.objects.filter(purchase_id=single_purchase.id, status=True)
 
     context={
         'single_purchase': single_purchase,
         'is_in_cart': is_in_cart,
+        'reviews': reviews,
     }
     return render(request, 'offers/purchase_detail.html', context)
         
