@@ -57,7 +57,7 @@ class Variation(models.Model):
     
     objects = VariationManager()
     
-    def __str__(self):
+    def __unicode__(self):
         return self.variation_value
     
    
