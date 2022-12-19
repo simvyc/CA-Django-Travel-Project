@@ -26,15 +26,6 @@
              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                  <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'home' %}>Home</a></li>
                  <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                 <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href={% url 'offers' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">Travel Offers</a>
-                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                         <li><a class="dropdown-item" href="#!">All Products</a></li>
-                         <li><hr class="dropdown-divider" /></li>
-                         <li><a class="dropdown-item" href="#!">Popular Adventures</a></li>
-                         <li><a class="dropdown-item" href="#!">New Adventures</a></li>
-                     </ul>
-                 </li>
              </ul>
         <div class="d-flex justify-content-end mb-3 mb-lg-0">
         {% if user.id is None %}
@@ -44,8 +35,8 @@
             {% else %}
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
               <li class="nav-item"><a class="nav-link active text-capitalize" aria-current="page" href={% url 'home' %}>Welcome, {{ user.first_name}}!</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">My Profile</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">To Do List</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">My Profile</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'todolist' %}">To Do List</a></li>
             </ul>
             <a href="{% url 'logout' %}"><button  class="btn btn-light" type='submit'><i  class="fill me-1"></i>Log Out<span class="bg-dark text-white ms-1 rounded-pill"></span></button></a>
             {% endif %}
@@ -56,12 +47,10 @@
             </div>
           </div>
     </nav>
+    {% block content %} 
 
 
-    {% block content %}
-    {% comment %} Content {% endcomment %}
     {% endblock %}
-
      <!-- Footer -->
   <footer class="text-center text-lg-start bg-white text-muted">
    
