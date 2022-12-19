@@ -31,7 +31,7 @@
         <div class="aside"><img class="img-sm" src="{{ cart_item.purchase.image.url }}"></div>  
         <figcaption class="info">
             <a href="{{ cart_item.purchase.get_url }}" class="title text-dark">{{ cart_item.purchase.purchase_name }}</a>
-            <p class="text-muted small">Country: {{cart_item.purchase.country.country_name}} <br> City: {{cart_item.purchase.city.city_name}}
+             <p class="text-muted small">Country: {{cart_item.purchase.country.country_name}} <br> City: {{cart_item.purchase.city.city_name}}
                 {% if cart_item.variations.all %}
                         {% for item in cart_item.variations.all %}
                         {{ item.variation | capfirst }} : {{ item.variation_value | capfirst }} <br>

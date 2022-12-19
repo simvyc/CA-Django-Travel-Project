@@ -3,6 +3,7 @@ from category.models import Category
 from travelapp.models import Country, City
 from accounts.models import Account
 from django.urls import reverse
+from django.db.models import Avg, Count
 
 class Purchase(models.Model):
     purchase_name = models.CharField('Name', max_length=200, unique=True)
@@ -20,7 +21,20 @@ class Purchase(models.Model):
     
     def get_url(self):
         return reverse('purchase_detail', args=[self.category.slug, self.slug])
-        
+    
+    def averageReview(self):
+        reviews = ReviewAndRating.objects.filter(purchase=self, status=True).aggregate(average=Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+
+    def countReview(self):
+        reviews = ReviewAndRating.objects.filter(purchase=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
 
     def __str__(self):
         return self.purchase_name
@@ -52,7 +66,7 @@ class ReviewAndRating(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     subject = models.CharField(max_length=120, blank=True)
     review = models.TextField(max_length=1000, blank=True)
-    rating = models.IntegerField()
+    rating = models.FloatField()
     ip = models.CharField(max_length=20, blank=True)
     status = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)

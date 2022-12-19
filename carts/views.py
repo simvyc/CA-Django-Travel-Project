@@ -89,18 +89,13 @@ def add_cart(request, purchase_id):
 
         is_cart_item_exists = CartItem.objects.filter(purchase=purchase, cart=cart).exists()
         if is_cart_item_exists:
-            cart_item = CartItem.objects.filter(product=purchase, cart=cart)
-            # existing_variations -> database
-            # current variation -> product_variation
-            # item_id -> database
+            cart_item = CartItem.objects.filter(purchase=purchase, cart=cart)
             ex_var_list = []
             id = []
             for item in cart_item:
                 existing_variation = item.variations.all()
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
-
-            print(ex_var_list)
 
             if purchase_variation in ex_var_list:
                 # increase the cart item quantity
@@ -118,7 +113,7 @@ def add_cart(request, purchase_id):
                 item.save()
         else:
             cart_item = CartItem.objects.create(
-                product = purchase,
+                purchase = purchase,
                 persons = 1,
                 cart = cart,
             )
@@ -134,7 +129,7 @@ def remove_cart(request, purchase_id, cart_item_id):
         if request.user.is_authenticated:
             cart_item = CartItem.objects.get(purchase=purchase, user=request.user, id=cart_item_id)
         else:
-            cart = CartItem.objects.get(cart_id=_cart_id(request)) # !!!
+            cart = Cart.objects.get(cart_id=_cart_id(request)) # !
             cart_item = CartItem.objects.get(purchase=purchase, cart=cart, id=cart_item_id)
         if cart_item.persons > 1:
             cart_item.persons -= 1
@@ -156,10 +151,10 @@ def remove_cart_item(request, purchase_id, cart_item_id):
     return redirect('cart')
 
 def cart(request, total=0, persons=0, cart_items=None):
-
     try:
         tax=0
         t_total=0
+        
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         else:
