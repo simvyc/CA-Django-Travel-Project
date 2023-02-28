@@ -193,8 +193,9 @@ def checkout(request, total=0, persons=0, cart_items=None):
         tax=0
         t_total=0
         if request.user.is_authenticated:
-            cart = Cart.objects.get(cart_id=_cart_id(request)) # take cart obj by id
+            cart_items = CartItem.objects.filter(user=request.user, is_active=True)
         else:
+            cart = Cart.objects.get(cart_id=_cart_id(request))
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
             total += (cart_item.purchase.price * cart_item.persons)
@@ -216,5 +217,6 @@ def checkout(request, total=0, persons=0, cart_items=None):
 
 
 def order_checkout(request):
+
     return render(request, 'offers/order_checkout.html')
 
