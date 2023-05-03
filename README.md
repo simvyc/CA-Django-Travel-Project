@@ -11,7 +11,7 @@
 <br />
 In this E-Shop user can buy the adventure.
 <br />
-Functionality: log in, log out, regirster, add item to cart, add more than one item to cart.
+Functionality: log in form, log out, register form, add item to cart, add more than one item to cart, remove items, checkout, password reminder, writting reviews if you are logged in, rating (stars), average rating calculation.
 Custom user model to log in with email (by default in Django you need to log in with username).
 <br />
 Home view
@@ -22,12 +22,6 @@ Filter adventories by category
 <br />
 Reviews can be written only if you are logged in
 <img src="https://github.com/simvyc/CA-Django-Travel-Project/blob/main/media/images/adventure_view.jpg">
-<br />
-Login
-<img src="https://github.com/simvyc/CA-Django-Travel-Project/blob/main/media/images/log_in_view.jpg">
-<br />
-Register
-<img src="https://github.com/simvyc/CA-Django-Travel-Project/blob/main/media/images/register_view.jpg">
 <br />
 Shopping Cart (add more items or delete with +/- functionality)
 <img src="https://github.com/simvyc/CA-Django-Travel-Project/blob/main/media/images/shopping_cart_view.jpg">
